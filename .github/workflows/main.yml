@@ -1,6 +1,10 @@
 name: Ruby build in DEV
 
 on:
+  push:
+    branches: [ DEV ]
+  pull_request:
+    branches: [ DEV ]
   workflow_dispatch:
 
 jobs:
