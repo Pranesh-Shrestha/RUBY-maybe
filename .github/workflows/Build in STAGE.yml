@@ -1,4 +1,4 @@
-name: Ruby build in DEV
+name: Ruby build in STAGE
 
 on:
   push:
