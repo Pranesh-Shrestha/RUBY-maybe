@@ -1,8 +1,12 @@
-name: Ruby CI
+name: Ruby build in DEV
 
 on:
+  push:
+    branches: [ STAGE ]
+  pull_request:
+    branches: [ STAGE ]
   workflow_dispatch:
-  
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -20,13 +24,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4.1' # specify your Ruby version
-          bundler-cache: true
-
+          
       - name: Install dependencies
         run: |
           gem install bundler
           bundle install  # If you have a Gemfile
           gem list # This will list all installed gems
+          
       - name: Cleanup PSE
         if: always()
         uses: invisirisk/pse-action@dev-test
