@@ -1,11 +1,12 @@
 name: Ruby build in PROD
 
 on:
+  workflow_dispatch:
   push:
     branches: [ PROD ]
   pull_request:
     branches: [ PROD ]
-  workflow_dispatch:
+
 
 jobs:
   test:
