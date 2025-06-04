@@ -3,9 +3,9 @@ name: Ruby build in PROD
 on:
   workflow_dispatch:
   push:
-    branches: [ PROD ]
+    branches: [ PROD_CLEAN ]
   pull_request:
-    branches: [ PROD ]
+    branches: [ PROD_CLEAN ]
 
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_PROD }}
+          app_token: ${{ secrets.IR_API_KEY_PROD_CLEAN }}
 
       - uses: actions/checkout@v4
 
