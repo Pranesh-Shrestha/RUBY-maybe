@@ -1,0 +1,31 @@
+name: Ruby Dependency Tree
+
+on:
+  push:
+    branches: [PROD_CLEAN]
+  pull_request:
+    branches: [PROD_CLEAN]
+
+jobs:
+  show-dependency-tree:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.1' # specify your Ruby version
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install  # If you have a Gemfile
+          gem list # This will list all installed gems
+
+      - name: Show dependency tree
+        run: |
+          gem install gem-what
+          gem what --tree
