@@ -1,0 +1,44 @@
+name: Ruby build in STAGE
+
+on:
+  push:
+    branches: [ STAGE ]
+  pull_request:
+    branches: [ STAGE ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run build
+    steps:
+      - name: Setup PSE
+        uses: invisirisk/pse-action@test
+        with:
+          api_url: "https://app.stage.invisirisk.com"
+          app_token: ${{ secrets.IR_API_KEY_STAGE }}
+
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4.1' # specify your Ruby version
+          
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install  # If you have a Gemfile
+          gem list # This will list all installed gems
+          
+      - name: Cleanup PSE
+        if: always()
+        uses: invisirisk/pse-action@test
+        with:
+          cleanup: "true"
+          
+      - name: Gather Job status
+        if: always()
+        uses: invisirisk/pse-action@test
+        with:
+          get_jobs: "true"
