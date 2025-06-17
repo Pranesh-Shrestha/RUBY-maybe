@@ -14,10 +14,10 @@ jobs:
     name: Run build
     steps:
       - name: Setup PSE
-        uses: invisirisk/pse-action@latest
+        uses: invisirisk/pse-action@v1.0.30
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_PROD_CLEAN }}
+          app_token: ${{ secrets.IR_API_KEY_PROD_CLEANs }}
 
       - uses: actions/checkout@v4
 
@@ -34,6 +34,20 @@ jobs:
           
       - name: Cleanup PSE
         if: always()
-        uses: invisirisk/pse-action@latest
+        uses: invisirisk/pse-action@v1.0.30
         with:
           cleanup: "true"
+          
+  gather_analytics:
+   runs-on: ubuntu-latest
+   name: Gather Analytics
+   needs: test
+   if: always()
+   steps:
+   - name: Gather Status
+     uses: invisirisk/pse-action@v1.0.30
+     with:
+      api_url: "https://app.invisirisk.com"
+      app_token: ${{ secrets.IR_API_KEY_PROD_CLEAN }}
+      send_job_status: "true"
+
