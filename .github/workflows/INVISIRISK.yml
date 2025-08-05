@@ -1,10 +1,6 @@
 name: Ruby build in STAGE
 
 on:
-  push:
-    branches: [ STAGE ]
-  pull_request:
-    branches: [ STAGE ]
   workflow_dispatch:
 
 jobs:
