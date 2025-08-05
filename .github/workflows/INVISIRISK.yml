@@ -1,5 +1,4 @@
-name: Ruby build in STAGE
-
+name: Ruby build
 on:
   workflow_dispatch:
 
