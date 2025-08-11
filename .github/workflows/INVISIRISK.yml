@@ -3,15 +3,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  RUBY:
     runs-on: ubuntu-latest
     name: Run build
     steps:
       - name: Setup PSE
-        uses: invisirisk/pse-action@test
+        uses: invisirisk/pse-action@dev-test
         with:
           api_url: "https://app.stage.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_STAGE }}
+          app_token: ${{ secrets.IR_API_KEY_L_STAGE }}
 
       - uses: actions/checkout@v4
 
@@ -28,12 +28,19 @@ jobs:
           
       - name: Cleanup PSE
         if: always()
-        uses: invisirisk/pse-action@test
+        uses: invisirisk/pse-action@dev-test
         with:
           cleanup: "true"
           
-      - name: Gather Job status
-        if: always()
-        uses: invisirisk/pse-action@test
-        with:
-          get_jobs: "true"
+  gather_analytics:
+       runs-on: ubuntu-latest
+       name: Gather Analytics
+       needs: RUBY
+       if: always()
+       steps:
+       - name: Gather Status
+         uses: invisirisk/pse-action@dev-test
+         with:
+          api_url: "https://app.stage.invisirisk.com"
+          app_token: ${{ secrets.IR_API_KEY_L_STAGE }}
+          send_job_status: "true"
