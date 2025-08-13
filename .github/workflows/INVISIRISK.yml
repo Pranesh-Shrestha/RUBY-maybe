@@ -9,10 +9,10 @@ jobs:
     name: Run build
     steps:
       - name: Setup PSE
-        uses: invisirisk/pse-action@v1.0.30
+        uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_PROD }}
+          app_token: ${{ secrets.IR_API_KEY_L_PROD }}
 
       - uses: actions/checkout@v4
 
@@ -29,7 +29,7 @@ jobs:
           
       - name: Cleanup PSE
         if: always()
-        uses: invisirisk/pse-action@v1.0.30
+        uses: invisirisk/pse-action@latest
         with:
           cleanup: "true"
           
@@ -40,8 +40,8 @@ jobs:
    if: always()
    steps:
    - name: Gather Status
-     uses: invisirisk/pse-action@v1.0.30
+     uses: invisirisk/pse-action@latest
      with:
       api_url: "https://app.invisirisk.com"
-      app_token: ${{ secrets.IR_API_KEY_PROD }}
+      app_token: ${{ secrets.IR_API_KEY_L_PROD }}
       send_job_status: "true"
