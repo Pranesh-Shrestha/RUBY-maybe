@@ -12,6 +12,7 @@ jobs:
         with:
           api_url: "https://app.stage.invisirisk.com"
           app_token: ${{ secrets.IR_API_KEY_L_STAGE }}
+          mode: docker-intercept
 
       - uses: actions/checkout@v4
 
