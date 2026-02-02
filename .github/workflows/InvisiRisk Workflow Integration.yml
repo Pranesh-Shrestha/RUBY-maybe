@@ -17,7 +17,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_SCAN_RUBY }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
         with:
           cleanup: "true"
 
-  gather_analytics:
+  gather_analytics_scan_ruby:
     runs-on: ubuntu-latest
     name: Gather Analytics
     needs: scan_ruby
@@ -47,7 +47,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_SCAN_RUBY }}
           send_job_status: "true"
           debug: "true"
 
@@ -59,7 +59,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_SCAN_JS }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -79,7 +79,7 @@ jobs:
         with:
           cleanup: "true"
 
-  gather_analytics:
+  gather_analytics_scan_js:
     runs-on: ubuntu-latest
     name: Gather Analytics
     needs: scan_js
@@ -89,7 +89,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_SCAN_JS }}
           send_job_status: "true"
           debug: "true"
 
@@ -101,7 +101,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_LINT }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -121,7 +121,7 @@ jobs:
         with:
           cleanup: "true"
 
-  gather_analytics:
+  gather_analytics_lint:
     runs-on: ubuntu-latest
     name: Gather Analytics
     needs: lint
@@ -131,7 +131,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_LINT }}
           send_job_status: "true"
           debug: "true"
 
@@ -143,7 +143,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_LINT_JS }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -167,7 +167,7 @@ jobs:
         with:
           cleanup: "true"
 
-  gather_analytics:
+  gather_analytics_lint_js:
     runs-on: ubuntu-latest
     name: Gather Analytics
     needs: lint_js
@@ -177,7 +177,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_LINT_JS }}
           send_job_status: "true"
           debug: "true"
 
@@ -220,7 +220,7 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_TEST }}
 
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libvips postgresql-client libpq-dev
@@ -260,7 +260,7 @@ jobs:
         with:
           cleanup: "true"
 
-  gather_analytics:
+  gather_analytics_test:
     runs-on: ubuntu-latest
     name: Gather Analytics
     needs: test
@@ -270,6 +270,6 @@ jobs:
         uses: invisirisk/pse-action@latest
         with:
           api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
+          app_token: ${{ secrets.IR_API_KEY_TEST }}
           send_job_status: "true"
           debug: "true"
