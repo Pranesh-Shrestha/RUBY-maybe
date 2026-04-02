@@ -13,11 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_SCAN_RUBY }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,35 +26,10 @@ jobs:
       - name: Scan for security vulnerabilities in Ruby dependencies
         run: bin/brakeman --no-pager
 
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-
-  gather_analytics_scan_ruby:
-    runs-on: ubuntu-latest
-    name: Gather Analytics
-    needs: scan_ruby
-    if: always()
-    steps:
-      - name: Gather Status
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_SCAN_RUBY }}
-          send_job_status: "true"
-          debug: "true"
-
   scan_js:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_SCAN_JS }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -73,35 +43,10 @@ jobs:
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-
-  gather_analytics_scan_js:
-    runs-on: ubuntu-latest
-    name: Gather Analytics
-    needs: scan_js
-    if: always()
-    steps:
-      - name: Gather Status
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_SCAN_JS }}
-          send_job_status: "true"
-          debug: "true"
-
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_LINT }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -115,35 +60,11 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-
-  gather_analytics_lint:
-    runs-on: ubuntu-latest
-    name: Gather Analytics
-    needs: lint
-    if: always()
-    steps:
-      - name: Gather Status
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_LINT }}
-          send_job_status: "true"
-          debug: "true"
 
   lint_js:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_LINT_JS }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -160,27 +81,7 @@ jobs:
 
       - name: Lint/Format js code
         run: npm run lint
-
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-
-  gather_analytics_lint_js:
-    runs-on: ubuntu-latest
-    name: Gather Analytics
-    needs: lint_js
-    if: always()
-    steps:
-      - name: Gather Status
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_LINT_JS }}
-          send_job_status: "true"
-          debug: "true"
-
+        
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -216,12 +117,6 @@ jobs:
           --health-retries=3
 
     steps:
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_TEST }}
-
       - name: Install packages
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libvips postgresql-client libpq-dev
 
@@ -253,23 +148,3 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
-
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-
-  gather_analytics_test:
-    runs-on: ubuntu-latest
-    name: Gather Analytics
-    needs: test
-    if: always()
-    steps:
-      - name: Gather Status
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY_TEST }}
-          send_job_status: "true"
-          debug: "true"
